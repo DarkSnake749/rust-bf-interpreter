@@ -101,7 +101,15 @@ impl Program {
             return;
         }
 
-        while !self.eof() && self.get_current_inst() == ']' {
+        let mut num_op_loop: usize = 0;
+        while !self.eof() && self.get_current_inst() == CL_LOOP {
+            if self.get_current_inst() == OP_LOOP {
+                num_op_loop += 1;
+            }
+
+            if self.instructions[self.inst_pos+1] == CL_LOOP && num_op_loop != 0 {
+                self.inst_pos += 1;
+            }
             self.inst_pos += 1;
         }
         self.inst_pos += 1;
