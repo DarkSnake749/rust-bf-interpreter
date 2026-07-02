@@ -126,8 +126,14 @@ impl Program {
             "{}", self.get_current_memory() as char));
     }
 
-    fn input(&self) {
+    fn input(&mut self) {
+        let mut inp: String = String::from("");
+        io::stdin().read_line(&mut inp).expect("Unable to read input");
+        
+        let chars: Vec<char> = inp.chars().collect();
+        let c = chars[0];
 
+        self.memory[self.memory_ptr] = c as u8;
     }
 }
 
